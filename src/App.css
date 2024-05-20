@@ -20,3 +20,43 @@ body {
 .content {
     padding: 50px;
 }
+
+.topic-title {
+    font-size: 20px !important;
+    font-weight: bold !important;
+}
+
+.topic {
+    margin: 20px 0px;
+}
+
+.topic-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.topic-data-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.topic-data {
+    display: flex;
+    flex-direction: row;
+    margin-right: 20px;
+    color: #888;
+    align-items: center;
+}
+
+.topic-data__icon {
+    margin-right: 10px !important;
+}
+
+.topic-data__value {
+    font-size: 14px !important;
+}
+
+.view-topic-button {
+    color: #000 !important;
+}
