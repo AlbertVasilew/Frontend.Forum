@@ -1,7 +1,15 @@
+import { ThemeProvider } from "@emotion/react";
+import { createTheme } from "@mui/material";
+
+import Header from "./components/Header";
+import theme from "./themes/default-theme";
+
+import './App.css';
+
 const App = () => (
-  <div>
-    Newly created react app (cleaned!)
-  </div>
+    <ThemeProvider theme={createTheme(theme)}>
+        <Header />
+    </ThemeProvider>
 )
 
 export default App;
