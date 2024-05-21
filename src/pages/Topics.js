@@ -1,7 +1,4 @@
-import { Box, Button, Card, CardActions, CardContent, TablePagination, Typography } from "@mui/material";
-import PersonIcon from '@mui/icons-material/Person';
-import CommentIcon from '@mui/icons-material/Comment';
-import VisibilityIcon from '@mui/icons-material/Visibility';
+import { Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TablePagination, TableRow } from "@mui/material";
 import { useEffect, useState } from "react";
 
 const Topics = () => {
@@ -22,42 +19,38 @@ const Topics = () => {
     }, [pagination])
 
     return (
-        <Box>
-            {topics.map(topic => (
-                <Card className="topic">
-                    <CardContent>
-                        <Box className="topic-header">
-                            <Typography className="topic-title">{topic.title}</Typography>
-                            <Box className="topic-data-container">
-                                <Box className="topic-data">
-                                    <PersonIcon className="topic-data__icon" />
-                                    <Typography className="topic-data__value">{topic.author}</Typography>
-                                </Box>
-                                <Box className="topic-data">
-                                    <CommentIcon className="topic-data__icon" />
-                                    <Typography className="topic-data__value">{topic.comments}</Typography>
-                                </Box>
-                                <Box className="topic-data">
-                                    <VisibilityIcon className="topic-data__icon" />
-                                    <Typography className="topic-data__value">{topic.views}</Typography>
-                                </Box>
-                            </Box>
-                        </Box>
-                    </CardContent>
-                    <CardActions>
-                        <Button className="view-topic-button">View topic</Button>
-                    </CardActions>
-                </Card>
-            ))}
-            <TablePagination
-                component="div"
-                count={topics.length}
-                page={pagination.page}
-                onPageChange={(e, page) => setPagination({...pagination, page: page})}
-                rowsPerPage={pagination.perPage}
-                onRowsPerPageChange={e => setPagination({...pagination, perPage: e.target.value})}
-            />
-        </Box>
+        <TableContainer component={Paper}>
+            <Table sx={{width: "100%"}}>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Title</TableCell>
+                        <TableCell>Author</TableCell>
+                        <TableCell>Views</TableCell>
+                        <TableCell>Comments</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {topics.map(topic => (
+                        <TableRow key={topic.id}>
+                            <TableCell>{topic.title}</TableCell>
+                            <TableCell>{topic.author}</TableCell>
+                            <TableCell>{topic.views}</TableCell>
+                            <TableCell>{topic.comments}</TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+                <TableFooter>
+                    <TablePagination
+                        colSpan={5}
+                        count={topics.length}
+                        page={pagination.page}
+                        onPageChange={(e, page) => setPagination({...pagination, page: page})}
+                        rowsPerPage={pagination.perPage}
+                        onRowsPerPageChange={e => setPagination({...pagination, perPage: e.target.value})}
+                    />
+                </TableFooter>
+            </Table>
+        </TableContainer>
     )
 }
 

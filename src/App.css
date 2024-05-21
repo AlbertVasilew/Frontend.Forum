@@ -19,6 +19,7 @@ body {
 
 .content {
     padding: 50px;
+    flex-grow: 1;
 }
 
 .topic-title {
