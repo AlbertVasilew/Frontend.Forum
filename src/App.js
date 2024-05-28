@@ -1,22 +1,28 @@
-import { ThemeProvider } from "@emotion/react";
-import { Box, createTheme } from "@mui/material";
+import { Box, ThemeProvider, createTheme } from "@mui/material";
 
-import Header from "./components/Header";
 import Content from "./components/Content";
-
-import theme from "./themes/default-theme";
 
 import './App.css';
 import Menu from "./components/Drawer";
 
+const theme = createTheme({
+    palette: {
+        type: 'light',
+        primary: {
+          main: '#ffffff',
+        },
+        secondary: {
+          main: '#f50057',
+        }
+      }
+})
+
 const App = () => (
-    <ThemeProvider theme={createTheme(theme)}>
+    <ThemeProvider theme={theme}>
         <Box sx={{display: "flex"}}>
-            <Header />
             <Menu />
             <Content />
         </Box>
-
     </ThemeProvider>
 )
 

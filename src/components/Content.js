@@ -3,7 +3,6 @@ import { Outlet } from "react-router-dom";
 
 const Content = () => (
     <Box className="content">
-        <Toolbar />
         <Outlet />
     </Box>
 )

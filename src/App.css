@@ -7,57 +7,25 @@ body {
     justify-content: space-between;
 }
 
-.header__title {
-    color: #000;
-}
-
 .header__button {
-    color: #000 !important;
-    align-items: center;
-    justify-content: center;
+    color: #1976d2 !important;
+    background-color: #fff !important;
 }
 
 .content {
-    padding: 50px;
+    padding: 20px;
     flex-grow: 1;
 }
 
-.topic-title {
-    font-size: 20px !important;
-    font-weight: bold !important;
+.topics-table {
+    width: 100%;
 }
 
-.topic {
-    margin: 20px 0px;
+.topics-table__header {
+    background-color: #eee;
 }
 
-.topic-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.topic-data-container {
-    display: flex;
-    flex-direction: row;
-}
-
-.topic-data {
-    display: flex;
-    flex-direction: row;
-    margin-right: 20px;
-    color: #888;
-    align-items: center;
-}
-
-.topic-data__icon {
-    margin-right: 10px !important;
-}
-
-.topic-data__value {
-    font-size: 14px !important;
-}
-
-.view-topic-button {
-    color: #000 !important;
+.topics-table__row:hover {
+    background-color: #f7f7f7;
+    cursor: pointer;
 }

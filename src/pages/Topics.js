@@ -1,56 +1,54 @@
-import { Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TablePagination, TableRow } from "@mui/material";
-import { useEffect, useState } from "react";
+import { Box, Button, Typography } from "@mui/material";
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import DoneIcon from '@mui/icons-material/Done';
 
 const Topics = () => {
-    const [topics, setTopics] = useState([]);
-
-    const [pagination, setPagination] = useState({
-        page: 0,
-        perPage: 10,
-        pages: 1
-    });
-
-    useEffect(() => {
-        // API call to retrieve topics by pagination parameters
-        setTopics([
-            { id: 1, title: "Topic 1", views: 1, comments: 10, author: "Ivan Ivanov" },
-            { id: 2, title: "Topic 2", views: 2, comments: 11, author: "Albert Vasilev" }
-        ]);
-    }, [pagination])
 
     return (
-        <TableContainer component={Paper}>
-            <Table sx={{width: "100%"}}>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Title</TableCell>
-                        <TableCell>Author</TableCell>
-                        <TableCell>Views</TableCell>
-                        <TableCell>Comments</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {topics.map(topic => (
-                        <TableRow key={topic.id}>
-                            <TableCell>{topic.title}</TableCell>
-                            <TableCell>{topic.author}</TableCell>
-                            <TableCell>{topic.views}</TableCell>
-                            <TableCell>{topic.comments}</TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-                <TableFooter>
-                    <TablePagination
-                        colSpan={5}
-                        count={topics.length}
-                        page={pagination.page}
-                        onPageChange={(e, page) => setPagination({...pagination, page: page})}
-                        rowsPerPage={pagination.perPage}
-                        onRowsPerPageChange={e => setPagination({...pagination, perPage: e.target.value})}
-                    />
-                </TableFooter>
-            </Table>
-        </TableContainer>
+        <Box>
+            <Box sx={{display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+                <Typography sx={{fontWeight: "bold", fontSize: "40px"}}>
+                    <Box component="span">Personal</Box>
+                    <Box component="span" sx={{marginLeft: "20px", border: "1px solid #eee", padding: "0px 10px", borderRadius: "5px"}}>1</Box>
+                </Typography>
+                <Button variant="contained">Add New Task</Button>
+            </Box>
+
+            <Box>
+                <Box sx={{background: "#f4f4f4", padding: "10px", border: "1px solid #F4F4F4", borderRadius: "5px", margin: "10px 0px"}}>
+                    <Box sx={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+                        <Typography sx={{fontWeight: "bold", marginBottom: "10px"}}>Buy products for Banica</Typography>
+                        <Typography>Completed on 28-07-2024</Typography>
+                    </Box>
+                    <Box sx={{display: "flex", flexDirection: "row", alignContent: "center"}}>
+                        <Typography sx={{marginRight: "20px", color: "#888", display: "flex", alignItems: "center", lineHeight: "inherit"}}>
+                            <CalendarMonthIcon />
+                            <Box sx={{marginLeft: "5px"}}>25-07-24</Box>
+                        </Typography>
+                        <Typography sx={{marginRight: "20px", color: "#888", display: "flex", alignItems: "center", lineHeight: "inherit"}}>
+                            <Box sx={{width: "15px", height: "15px", background: "blue", borderRadius: "5px"}}></Box>
+                            <Box sx={{marginLeft: "5px"}}>Personal</Box>
+                        </Typography>
+                    </Box>
+                </Box>
+                <Box sx={{background: "#f4f4f4", padding: "10px", border: "1px solid #F4F4F4", borderRadius: "5px", margin: "10px 0px"}}>
+                <Box sx={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+                        <Typography sx={{fontWeight: "bold", marginBottom: "10px"}}>Wash car</Typography>
+                        <Button variant="contained">Complete</Button>
+                    </Box>
+                    <Box sx={{display: "flex", flexDirection: "row", alignContent: "center"}}>
+                        <Typography sx={{marginRight: "20px", color: "#888", display: "flex", alignItems: "center", lineHeight: "inherit"}}>
+                            <CalendarMonthIcon />
+                            <Box sx={{marginLeft: "5px"}}>25-07-24</Box>
+                        </Typography>
+                        <Typography sx={{marginRight: "20px", color: "#888", display: "flex", alignItems: "center", lineHeight: "inherit"}}>
+                            <Box sx={{width: "15px", height: "15px", background: "blue", borderRadius: "5px"}}></Box>
+                            <Box sx={{marginLeft: "5px"}}>Personal</Box>
+                        </Typography>
+                    </Box>
+                </Box>
+            </Box>
+        </Box>
     )
 }
 
