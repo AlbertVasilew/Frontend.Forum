@@ -2,23 +2,12 @@ import { Box, ThemeProvider, createTheme } from "@mui/material";
 
 import Content from "./components/Content";
 
-import './App.css';
+import './styles/styles.css';
 import Menu from "./components/Drawer";
-
-const theme = createTheme({
-    palette: {
-        type: 'light',
-        primary: {
-          main: '#ffffff',
-        },
-        secondary: {
-          main: '#f50057',
-        }
-      }
-})
+import theme from "./styles/theme";
 
 const App = () => (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={createTheme(theme)}>
         <Box sx={{display: "flex"}}>
             <Menu />
             <Content />
