@@ -1,12 +1,16 @@
+import { Box } from "@mui/material";
 import App from "../App";
-import Topics from "./Topics";
+import Category from "./Category";
+import Upcoming from "./Upcoming";
 
 const routerConfig = [
     {
         path: "/",
         element: <App />,
         children: [
-            { path: "/", element: <Topics />}
+            { path: "/", element: <Box></Box>},
+            { path: "upcoming", element: <Upcoming /> },
+            { path: "category/:categoryId", element: <Category /> }
         ]
     }
 ];

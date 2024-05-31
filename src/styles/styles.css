@@ -38,6 +38,12 @@ body {
     padding: 5px 10px !important;
 }
 
+.drawer-menu-item.active {
+    background-color: #EAEAEA;
+    /* Additional styling for the active menu item */
+  }
+  
+
 .drawer-menu-item__count {
     font-weight: bold !important;
     font-size: 12px !important;
