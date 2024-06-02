@@ -75,11 +75,14 @@ body {
 }
 
 .task-container {
-    background: #fff;
-    padding: 10px;
-    border: 1px solid #F4F4F4;
-    border-radius: 5px;
-    margin: 10px 0px;
+    padding: 10px 0px;
+    border-bottom: 1px solid #F4F4F4;
+    flex-grow: 1;
+    margin-left: 15px;
+}
+
+.task-container:last-child {
+    border-bottom: 0;
 }
 
 .task-header {
@@ -104,9 +107,9 @@ body {
     color: #888;
     display: flex;
     align-items: center;
-    line-height: inherit;
 }
 
 .task-body-item__text {
-    margin-left: 5px;
+    margin-left: 5px !important;
+    line-height: inherit !important;
 }

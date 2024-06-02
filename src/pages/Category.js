@@ -6,7 +6,7 @@ import Tasks from "../components/Tasks";
 
 const Category = () => {
     const { categoryId } = useParams();
-    const [tasks, setTasks] = useState([]);
+    const [tasks, setTasks] = useState();
 
     const categoryContext = useContext(CategoryContext);
 

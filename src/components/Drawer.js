@@ -1,6 +1,4 @@
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
-import NoteIcon from '@mui/icons-material/Note';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import TodayIcon from '@mui/icons-material/Today';
 import AddIcon from '@mui/icons-material/Add';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -11,20 +9,34 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import CategoryContext from '../contexts/categoryContext';
+import EventBusyIcon from '@mui/icons-material/EventBusy';
+import FactCheckIcon from '@mui/icons-material/FactCheck';
+import MenuContext from '../contexts/menuContext';
 
 const Menu = () => {
+  const [categoriesMenus, setCategoriesMenus] = useState([]);
+
+  const categoryContext = useContext(CategoryContext);
+  const primaryMenuContext = useContext(MenuContext);
+
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  const categoryContext = useContext(CategoryContext);
-
-  const menus = [
+  const [menus, setMenus] = useState([
     { name: "Upcoming", icon: <KeyboardDoubleArrowRightIcon fontSize="small" />, path: "/upcoming" },
     { name: "Today", icon: <TodayIcon fontSize="small" />, path: "/today" },
-    { name: "Sticky wall", icon: <NoteIcon fontSize="small" />, path: "/sticky-wall" }
-  ];
+    { name: "Overdue", icon: <EventBusyIcon fontSize="small" />, path: "/overdue" },
+    { name: "Completed", icon: <FactCheckIcon fontSize="small" />, path: "/completed" }
+  ]);
 
-  const categoriesMenus = categoryContext.categories.map(category => ({ ...category, path: `/category/${category.id}` }));
+
+  useEffect(() => {
+    setCategoriesMenus(categoryContext.categories.map(category => ({ ...category, path: `/category/${category.id}` })));
+  }, [categoryContext.categories])
+
+  useEffect(() => {
+    setMenus(menus.map(menu => ({...menu, count: primaryMenuContext.primaryMenuCounters[menu.name.toLowerCase()]})));
+  }, [primaryMenuContext.primaryMenuCounters]);
 
   const isActive = path => path === pathname;
 
@@ -36,13 +48,13 @@ const Menu = () => {
         <Box className="drawer-menu">
           <Typography className="drawer-menu__title">Tasks</Typography>
           <MenuList>
-            {menus.map(menu => (
+            {menus?.map(menu => (
               <MenuItem key={menu.name} className={`drawer-menu-item ${isActive(menu.path) ? `active` : ''}`} onClick={() => navigate(menu.path)}>
                 <ListItemIcon>
                   {menu.icon}
                 </ListItemIcon>
                 <ListItemText>{menu.name}</ListItemText>
-                <Typography className="drawer-menu-item__count">8</Typography>
+                <Typography className="drawer-menu-item__count">{menu.count}</Typography>
               </MenuItem>
             ))}
           </MenuList>
