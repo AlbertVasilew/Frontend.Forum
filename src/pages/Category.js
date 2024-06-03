@@ -17,7 +17,7 @@ const Category = () => {
 
     const category = categoryContext.categories?.find(x => x.id == categoryId);
 
-    return <Tasks title={category.name} tasks={tasks} />
+    return category && <Tasks title={category.name} tasks={tasks} category={category} />
 }
 
 export default Category;
