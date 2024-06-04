@@ -10,10 +10,14 @@ import axios from "axios";
 import CategoryContext from "./contexts/categoryContext";
 import MenuContext from "./contexts/menuContext";
 import { retrieveCategories, retrieveMenuCounters } from "./helpers/api-calls";
+import ManageCategoryDialog from "./components/ManageCategoryDialog";
+import DialogContext from "./contexts/dialogContext";
 
 const App = () => {
     const [categories, setCategories] = useState([]);
     const [primaryMenuCounters, setPrimaryMenuCounters] = useState([]);
+
+    const [manageCategoryDialog, setManageCategoryDialog] = useState();
 
     useEffect(() => {    
         retrieveCategories(setCategories);
@@ -24,10 +28,19 @@ const App = () => {
         <ThemeProvider theme={createTheme(theme)}>
             <CategoryContext.Provider value={{categories, setCategories}}>
                 <MenuContext.Provider value={{primaryMenuCounters, setPrimaryMenuCounters}}>
-                    <Box sx={{display: "flex"}}>
-                        <Menu />
-                        <Content />
-                    </Box>
+                    <DialogContext.Provider value={{manageCategoryDialog, setManageCategoryDialog}}>
+                        <Box sx={{display: "flex"}}>
+                            <Menu />
+                            <Content />
+                        </Box>
+                        {manageCategoryDialog && (
+                            <ManageCategoryDialog
+                                open={manageCategoryDialog}
+                                data={manageCategoryDialog}
+                                closeHandler={() => setManageCategoryDialog()}
+                            />
+                        )}
+                    </DialogContext.Provider>
                 </MenuContext.Provider>
             </CategoryContext.Provider>
         </ThemeProvider>

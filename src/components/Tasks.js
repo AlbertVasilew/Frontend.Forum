@@ -13,6 +13,7 @@ import CategoryContext from "../contexts/categoryContext";
 import MenuContext from "../contexts/menuContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import DialogContext from "../contexts/dialogContext";
 
 const Tasks = props => {
     const [completeTaskDialog, setCompleteTaskDialog] = useState();
@@ -21,6 +22,7 @@ const Tasks = props => {
 
     const categoryContext = useContext(CategoryContext);
     const menuContext = useContext(MenuContext);
+    const dialogContext = useContext(DialogContext);
 
     const navigate = useNavigate();
 
@@ -86,7 +88,7 @@ const Tasks = props => {
                     </Typography>
                     {props.category && (
                         <Box sx={{marginLeft: "20px"}}>
-                            <IconButton>
+                            <IconButton onClick={() => dialogContext.setManageCategoryDialog(props.category)}>
                                 <EditIcon />
                             </IconButton>
                             <IconButton sx={{color: "#FF0000"}} onClick={() => setDeleteCategoryDialog(props.category)}>

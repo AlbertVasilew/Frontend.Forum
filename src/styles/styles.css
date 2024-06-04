@@ -113,3 +113,22 @@ body {
     margin-left: 5px !important;
     line-height: inherit !important;
 }
+
+.manage-category-dialog {
+    margin: 5px 0px !important;
+}
+
+.input-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.input-container__field {
+    flex: 1 1 48%;
+}
+
+.manage-category-dialog .react-colorful {
+    margin-top: 20px;
+    width: 100% !important;
+}

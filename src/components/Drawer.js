@@ -12,12 +12,14 @@ import CategoryContext from '../contexts/categoryContext';
 import EventBusyIcon from '@mui/icons-material/EventBusy';
 import FactCheckIcon from '@mui/icons-material/FactCheck';
 import MenuContext from '../contexts/menuContext';
+import DialogContext from '../contexts/dialogContext';
 
 const Menu = () => {
   const [categoriesMenus, setCategoriesMenus] = useState([]);
 
   const categoryContext = useContext(CategoryContext);
   const primaryMenuContext = useContext(MenuContext);
+  const dialogContext = useContext(DialogContext);
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -72,7 +74,7 @@ const Menu = () => {
                 <Typography className="drawer-menu-item__count">{categoryMenu.tasks}</Typography>
               </MenuItem>
             ))}
-            <MenuItem className="drawer-menu-item">
+            <MenuItem className="drawer-menu-item" onClick={() => dialogContext.setManageCategoryDialog(true)}>
               <ListItemIcon>
                 <AddIcon fontSize="small" />
               </ListItemIcon>
