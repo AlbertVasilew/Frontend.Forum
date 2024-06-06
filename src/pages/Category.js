@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import CategoryContext from "../contexts/categoryContext";
 import Tasks from "../components/Tasks";
+import moment from "moment";
 
 const Category = () => {
     const { categoryId } = useParams();
@@ -11,7 +12,7 @@ const Category = () => {
     const categoryContext = useContext(CategoryContext);
 
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API}/api/Tasks/category/${categoryId}`)
+        axios.get(`${process.env.REACT_APP_API}/api/Tasks/category/${categoryId}`, { headers: { "User-Timezone": moment.tz.guess() }})
             .then(response => setTasks(response.data));
     }, [categoryId])
 

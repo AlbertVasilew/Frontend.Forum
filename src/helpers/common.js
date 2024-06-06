@@ -9,4 +9,6 @@ const utcDateTimeToLocalDate = (datetime, time = false) => {
     return dateTimeLocal.format(format);
 }
 
-export { utcDateTimeToLocalDate }
+const isNullOrEmpty = value => value == "" || value == null;
+
+export { utcDateTimeToLocalDate, isNullOrEmpty }

@@ -97,7 +97,7 @@ const Tasks = props => {
                         </Box>
                     )}
                 </Box>
-                <Button variant="contained">Add New Task</Button>
+                <Button variant="contained" onClick={() => dialogContext.setManageTaskDialog(true)}>Add New Task</Button>
             </Box>
             {props.tasks.map(task => (
                 <Box sx={{display: "flex", alignItems: "flex-start"}}>
@@ -110,7 +110,7 @@ const Tasks = props => {
                         <Box className="task-header">
                             <Typography className="task-header__title">{task.name}</Typography>
                             <Box>
-                                <IconButton>
+                                <IconButton onClick={() => dialogContext.setManageTaskDialog(task)}>
                                     <EditIcon />
                                 </IconButton>
                                 <IconButton sx={{color: "#FF0000"}} onClick={() => setDeleteTaskDialog(task)}>
@@ -121,16 +121,16 @@ const Tasks = props => {
                         <Box className="task-body">
                             <Box className="task-body-item">
                                 <CalendarMonth />
-                                <Typography className="task-body-item__text">Due {utcDateTimeToLocalDate(task.deadline)}</Typography>
+                                <Typography className="task-body-item__text">Due {utcDateTimeToLocalDate(task.deadline, true)}</Typography>
                             </Box>
-                            {task.categories.map(category => (
+                            {task.category && (
                                 <Box className="task-body-item">
-                                    <Box className="task-category-color-box" sx={{background: category.color}}></Box>
-                                    <Typography className="task-body-item__text">{category.name}</Typography>
+                                    <Box className="task-category-color-box" sx={{background: task.category.color}}></Box>
+                                    <Typography className="task-body-item__text">{task.category.name}</Typography>
                                 </Box>
-                            ))}
+                            )}
                             {task.completedOn != null && (
-                                    <Box className="task-body-item">
+                                <Box className="task-body-item">
                                     <EventAvailableIcon />
                                     <Typography className="task-body-item__text">Completed {utcDateTimeToLocalDate(task.completedOn, true)}</Typography>
                                 </Box>

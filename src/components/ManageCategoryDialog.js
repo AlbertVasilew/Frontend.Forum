@@ -37,7 +37,7 @@ const ManageCategoryDialog = props => {
     }
 
     return (
-        <Dialog open={props.open} onClose={props.closeHandler}>
+        <Dialog open={props.open} onClose={props.closeHandler} fullWidth maxWidth="sm">
             <DialogTitle>{props.data.id ? "Edit category" : "Add new category"}</DialogTitle>
             <DialogContent>
                 <Box className="manage-category-dialog">

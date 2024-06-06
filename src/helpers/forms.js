@@ -1,10 +1,12 @@
+import { isNullOrEmpty } from "./common";
+
 const validationHandlerFactory = (fields, setFields) => {
     return () => {
         const updatedFields = {...fields};
         Object.keys(updatedFields).forEach(key => updatedFields[key] = { ...updatedFields[key], error: false, errorMessage: null });
     
         const emptyFields = Object.keys(updatedFields)
-            .filter(key => updatedFields[key].value === "" && updatedFields[key].required);
+            .filter(key => isNullOrEmpty(updatedFields[key].value) && updatedFields[key].required);
         
         if (emptyFields.length)
             emptyFields.forEach(key => updatedFields[key] = { ...updatedFields[key], error: true });
