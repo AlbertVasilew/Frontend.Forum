@@ -6,7 +6,7 @@ import axios from "axios";
 import CategoryContext from "../contexts/categoryContext";
 import Tasks from "../components/Tasks";
 
-const Category = () => {
+const CategoryTasks = () => {
     const { categoryId } = useParams();
     const [tasks, setTasks] = useState();
 
@@ -21,4 +21,4 @@ const Category = () => {
     return category && <Tasks title={category.name} tasks={tasks} category={category} />
 }
 
-export default Category;
+export default CategoryTasks;

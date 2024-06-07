@@ -1,6 +1,7 @@
 body {
     margin: 0;
-    background-color: #fff;
+    background: url("../assets/wallpaper.jpg");
+    background-attachment: fixed;
 }
 
 .content {

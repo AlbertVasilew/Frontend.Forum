@@ -7,7 +7,7 @@ import MenuContext from "../contexts/menuContext";
 
 import Tasks from "../components/Tasks";
 
-const MenuCategory = props => {
+const MenuTasks = props => {
     const [tasks, setTasks] = useState();
 
     const categoryContext = useContext(CategoryContext);
@@ -21,4 +21,4 @@ const MenuCategory = props => {
     return <Tasks title={props.title} tasks={tasks} />
 }
 
-export default MenuCategory;
+export default MenuTasks;

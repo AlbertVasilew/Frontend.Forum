@@ -14,8 +14,11 @@ import { retrieveCategories, retrieveMenuCounters } from "./helpers/api-calls";
 
 import theme from "./styles/theme";
 import './styles/styles.css';
+import { Outlet } from "react-router-dom";
 
 const App = () => {
+    const [user, setUser] = useState();
+
     const [categories, setCategories] = useState([]);
     const [primaryMenuCounters, setPrimaryMenuCounters] = useState([]);
 
@@ -30,10 +33,16 @@ const App = () => {
         <ThemeProvider theme={createTheme(theme)}>
             <CategoryContext.Provider value={{categories, setCategories}}>
                 <MenuContext.Provider value={{primaryMenuCounters, setPrimaryMenuCounters}}>
-                    <Box sx={{display: "flex"}}>
-                        <Menu />
-                        <Content />
-                    </Box>
+                    {user ? (
+                        <Box sx={{
+                            display: "flex",
+                            minHeight: "100vh",
+                            background: "rgba(255, 255, 255, 0.9)"
+                        }}>
+                            <Menu />
+                            <Content />
+                        </Box>
+                    ) : <Outlet />}
                 </MenuContext.Provider>
             </CategoryContext.Provider>
         </ThemeProvider>
