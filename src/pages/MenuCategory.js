@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 
-import moment from "moment";
 import axios from "axios";
 
 import CategoryContext from "../contexts/categoryContext";
@@ -15,7 +14,7 @@ const MenuCategory = props => {
     const primaryMenuContext = useContext(MenuContext);
 
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API}/api/Tasks/${props.endpoint}`, { headers: { "User-Timezone": moment.tz.guess() } })
+        axios.get(`${process.env.REACT_APP_API}/api/Tasks/${props.endpoint}`)
             .then(response => setTasks(response.data));
     }, [categoryContext.categories, primaryMenuContext.primaryMenuCounters, props.endpoint]);
     

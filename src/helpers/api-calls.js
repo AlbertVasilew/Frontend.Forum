@@ -1,5 +1,4 @@
 import axios from "axios"
-import moment from "moment-timezone";
 
 const retrieveCategories = stateSetter => {
     axios.get(`${process.env.REACT_APP_API}/api/Categories`)
@@ -7,7 +6,7 @@ const retrieveCategories = stateSetter => {
 }
 
 const retrieveMenuCounters = stateSetter => {
-    axios.get(`${process.env.REACT_APP_API}/api/Tasks/get-menu-counters`, { headers: { "User-Timezone": moment.tz.guess() }})
+    axios.get(`${process.env.REACT_APP_API}/api/Tasks/get-menu-counters`)
         .then(response => stateSetter(response.data));
 }
 

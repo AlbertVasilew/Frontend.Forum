@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { Box, ThemeProvider, createTheme } from "@mui/material";
 
+import moment from "moment-timezone";
+import axios from "axios";
+
 import CategoryContext from "./contexts/categoryContext";
 import MenuContext from "./contexts/menuContext";
 
@@ -15,6 +18,8 @@ import './styles/styles.css';
 const App = () => {
     const [categories, setCategories] = useState([]);
     const [primaryMenuCounters, setPrimaryMenuCounters] = useState([]);
+
+    axios.defaults.headers["User-Timezone"] = moment.tz.guess();
 
     useEffect(() => {    
         retrieveCategories(setCategories);
