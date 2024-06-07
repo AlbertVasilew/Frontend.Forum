@@ -1,10 +1,12 @@
 import { useContext, useEffect, useState } from "react";
+
+import moment from "moment";
 import axios from "axios";
 
-import Tasks from "../components/Tasks";
 import CategoryContext from "../contexts/categoryContext";
 import MenuContext from "../contexts/menuContext";
-import moment from "moment";
+
+import Tasks from "../components/Tasks";
 
 const MenuCategory = props => {
     const [tasks, setTasks] = useState();

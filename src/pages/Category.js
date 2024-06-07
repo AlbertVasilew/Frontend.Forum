@@ -1,9 +1,11 @@
-import { useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
+import moment from "moment";
 import axios from "axios";
+
 import CategoryContext from "../contexts/categoryContext";
 import Tasks from "../components/Tasks";
-import moment from "moment";
 
 const Category = () => {
     const { categoryId } = useParams();
@@ -16,8 +18,7 @@ const Category = () => {
             .then(response => setTasks(response.data));
     }, [categoryId])
 
-    const category = categoryContext.categories?.find(x => x.id == categoryId);
-
+    const category = categoryContext.categories?.find(x => x.id === categoryId);
     return category && <Tasks title={category.name} tasks={tasks} category={category} />
 }
 

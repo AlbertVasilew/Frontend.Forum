@@ -1,11 +1,13 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography } from "@mui/material"
 import { useContext, useState } from "react";
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material"
 
-import { HexColorPicker } from "react-colorful";
-import { changeHandlerFactory, validationHandlerFactory } from "../helpers/forms";
 import axios from "axios";
-import { retrieveCategories } from "../helpers/api-calls";
+import { HexColorPicker } from "react-colorful";
+
 import CategoryContext from "../contexts/categoryContext";
+
+import { changeHandlerFactory, validationHandlerFactory } from "../helpers/forms";
+import { retrieveCategories } from "../helpers/api-calls";
 
 const ManageCategoryDialog = props => {
     const [fields, setFields] = useState({
@@ -37,7 +39,7 @@ const ManageCategoryDialog = props => {
     }
 
     return (
-        <Dialog open={props.open} onClose={props.closeHandler} fullWidth maxWidth="sm">
+        <Dialog open={props.data != null} onClose={props.closeHandler} fullWidth maxWidth="sm">
             <DialogTitle>{props.data.id ? "Edit category" : "Add new category"}</DialogTitle>
             <DialogContent>
                 <Box className="manage-category-dialog">

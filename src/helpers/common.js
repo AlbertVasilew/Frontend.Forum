@@ -1,14 +1,10 @@
 import moment from "moment";
 
-const utcDateTimeToLocalDate = (datetime, time = false) => {
+const utcDateTimeToLocalDate = datetime => {
     const dateTimeLocal = moment.utc(datetime).local();
-    let format = 'DD.MM.YYYY';
-
-    if (time) format += ' HH:mm';
-
-    return dateTimeLocal.format(format);
+    return dateTimeLocal.format('DD.MM.YYYY HH:mm');
 }
 
-const isNullOrEmpty = value => value == "" || value == null;
+const isNullOrEmpty = value => value === "" || value === null;
 
 export { utcDateTimeToLocalDate, isNullOrEmpty }

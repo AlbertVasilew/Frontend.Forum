@@ -13,16 +13,18 @@ import CategoryContext from "../contexts/categoryContext";
 import MenuContext from "../contexts/menuContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import DialogContext from "../contexts/dialogContext";
+import ManageCategoryDialog from "./ManageCategoryDialog";
+import ManageTaskDialog from "./ManageTaskDialog";
 
 const Tasks = props => {
     const [completeTaskDialog, setCompleteTaskDialog] = useState();
     const [deleteTaskDialog, setDeleteTaskDialog] = useState();
     const [deleteCategoryDialog, setDeleteCategoryDialog] = useState();
+    const [manageCategoryDialog, setManageCategoryDialog] = useState();
+    const [manageTaskDialog, setManageTaskDialog] = useState();
 
     const categoryContext = useContext(CategoryContext);
     const menuContext = useContext(MenuContext);
-    const dialogContext = useContext(DialogContext);
 
     const navigate = useNavigate();
 
@@ -46,7 +48,6 @@ const Tasks = props => {
         axios.delete(`${process.env.REACT_APP_API}/api/Categories/${props.category.id}`).then(() => {
             retrieveCategories(categoryContext.setCategories);
             retrieveMenuCounters(menuContext.setPrimaryMenuCounters);
-            
             navigate("/upcoming", { replace: true });
         });
     }
@@ -55,7 +56,7 @@ const Tasks = props => {
         <React.Fragment>
             {deleteTaskDialog && (
                 <ActionDialog
-                    open={deleteTaskDialog}
+                    open={deleteTaskDialog !== null}
                     title={deleteTaskDialog.name}
                     text="Do you really want to delete the task?"
                     actionHandler={deleteTaskHandler}
@@ -64,7 +65,7 @@ const Tasks = props => {
             )}
             {completeTaskDialog && (
                 <ActionDialog
-                    open={completeTaskDialog}
+                    open={completeTaskDialog !== null}
                     title={completeTaskDialog.name}
                     text="Do you really want to complete the task?"
                     actionHandler={completeTaskHandler}
@@ -73,13 +74,17 @@ const Tasks = props => {
             )}
             {deleteCategoryDialog && (
                 <ActionDialog
-                    open={deleteCategoryDialog}
+                    open={deleteCategoryDialog !== null}
                     title={deleteCategoryDialog.name}
                     text="Do you really want to delete the category?"
                     actionHandler={deleteCategoryHandler}
                     actionText="Delete"
                 />
             )}
+            {manageCategoryDialog &&
+                <ManageCategoryDialog data={manageCategoryDialog} closeHandler={() => setManageCategoryDialog()} />}
+            {manageTaskDialog &&
+                <ManageTaskDialog data={manageTaskDialog} closeHandler={() => setManageTaskDialog()} />}
             <Box className="tasks-page-header">
                 <Box sx={{display: "flex", alignItems: "center"}}>
                     <Typography className="tasks-page-header-title">
@@ -88,7 +93,7 @@ const Tasks = props => {
                     </Typography>
                     {props.category && (
                         <Box sx={{marginLeft: "20px"}}>
-                            <IconButton onClick={() => dialogContext.setManageCategoryDialog(props.category)}>
+                            <IconButton onClick={() => setManageCategoryDialog(props.category)}>
                                 <EditIcon />
                             </IconButton>
                             <IconButton sx={{color: "#FF0000"}} onClick={() => setDeleteCategoryDialog(props.category)}>
@@ -97,7 +102,7 @@ const Tasks = props => {
                         </Box>
                     )}
                 </Box>
-                <Button variant="contained" onClick={() => dialogContext.setManageTaskDialog(true)}>Add New Task</Button>
+                <Button variant="contained" onClick={() => setManageTaskDialog(true)}>Add New Task</Button>
             </Box>
             {props.tasks.map(task => (
                 <Box sx={{display: "flex", alignItems: "flex-start"}}>
@@ -110,7 +115,7 @@ const Tasks = props => {
                         <Box className="task-header">
                             <Typography className="task-header__title">{task.name}</Typography>
                             <Box>
-                                <IconButton onClick={() => dialogContext.setManageTaskDialog(task)}>
+                                <IconButton onClick={() => setManageTaskDialog(task)}>
                                     <EditIcon />
                                 </IconButton>
                                 <IconButton sx={{color: "#FF0000"}} onClick={() => setDeleteTaskDialog(task)}>
@@ -121,7 +126,7 @@ const Tasks = props => {
                         <Box className="task-body">
                             <Box className="task-body-item">
                                 <CalendarMonth />
-                                <Typography className="task-body-item__text">Due {utcDateTimeToLocalDate(task.deadline, true)}</Typography>
+                                <Typography className="task-body-item__text">Due {utcDateTimeToLocalDate(task.deadline)}</Typography>
                             </Box>
                             {task.category && (
                                 <Box className="task-body-item">
@@ -132,7 +137,7 @@ const Tasks = props => {
                             {task.completedOn != null && (
                                 <Box className="task-body-item">
                                     <EventAvailableIcon />
-                                    <Typography className="task-body-item__text">Completed {utcDateTimeToLocalDate(task.completedOn, true)}</Typography>
+                                    <Typography className="task-body-item__text">Completed {utcDateTimeToLocalDate(task.completedOn)}</Typography>
                                 </Box>
                             )}
                         </Box>

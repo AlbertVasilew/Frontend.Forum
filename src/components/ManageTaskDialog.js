@@ -1,14 +1,16 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, FormHelperText, MenuItem, Select, TextField, Typography } from "@mui/material"
 import { useContext, useState } from "react";
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, MenuItem, TextField } from "@mui/material"
+
+import axios from "axios";
+import moment from "moment-timezone";
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
+import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
+
+import CategoryContext from "../contexts/categoryContext";
+import MenuContext from "../contexts/menuContext";
 
 import { changeHandlerFactory, validationHandlerFactory } from "../helpers/forms";
-import moment from "moment-timezone";
-import { DatePicker, DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
-import CategoryContext from "../contexts/categoryContext";
 import { retrieveCategories, retrieveMenuCounters } from "../helpers/api-calls";
-import MenuContext from "../contexts/menuContext";
-import axios from "axios";
 
 const ManageTaskDialog = props => {
     const [fields, setFields] = useState({
@@ -17,8 +19,6 @@ const ManageTaskDialog = props => {
         deadline: { value: props.data.deadline ? moment(props.data.deadline) : null, required: true },
         category: { value: props.data.category?.id, required: false }
     });
-
-    console.log(props.data);
 
     const categoryContext = useContext(CategoryContext);
     const menuContext = useContext(MenuContext);
@@ -51,7 +51,7 @@ const ManageTaskDialog = props => {
     }
 
     return (
-        <Dialog open={props.open} onClose={props.closeHandler} fullWidth maxWidth="sm">
+        <Dialog open={props.data !== null} onClose={props.closeHandler} fullWidth maxWidth="sm">
             <DialogTitle>{props.data.id ? "Edit task" : "Add new task"}</DialogTitle>
             <DialogContent>
                 <Box className="manage-category-dialog">
@@ -76,8 +76,8 @@ const ManageTaskDialog = props => {
                                 slotProps={{
                                     textField: {
                                         color: "success",
-                                      error: fields.deadline.error,
-                                      helperText: fields.deadline.errorMessage
+                                        error: fields.deadline.error,
+                                        helperText: fields.deadline.errorMessage
                                     }
                                 }}
                             />
@@ -92,7 +92,8 @@ const ManageTaskDialog = props => {
                             helperText={fields.category.errorMessage}
                             onChange={event => changeHandler("category", event.target.value)}
                         >
-                            {categoryContext.categories.map(category => <MenuItem value={category.id}>{category.name}</MenuItem>)}
+                            {categoryContext.categories.map(category =>
+                                <MenuItem value={category.id}>{category.name}</MenuItem>)}
                         </TextField>
                     </Box>
                     <Box className="input-container">
