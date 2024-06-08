@@ -14,7 +14,6 @@ const Home = () => (
                     <Button variant="contained" sx={{background: "#FFD43B", width: "100%"}}>Get Started</Button>
                     <Button sx={{color: "black", marginTop: "10px"}} type="text">Already have an account? Sign in</Button>
                 </Box>
-
             </Box>
         </Box>
     </Box>
