@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import { Box, ThemeProvider, createTheme } from "@mui/material";
 
-import moment from "moment-timezone";
-import axios from "axios";
-
 import CategoryContext from "./contexts/categoryContext";
 import MenuContext from "./contexts/menuContext";
 
@@ -16,20 +13,25 @@ import theme from "./styles/theme";
 import './styles/styles.css';
 import { Outlet } from "react-router-dom";
 import AuthContext from "./contexts/authContext";
+import AxiosMiddleware from "./components/AxiosMiddleware/AxiosMiddleware";
+import { logoutHandler } from "./helpers/auth";
 
 const App = () => {
-    const [user, setUser] = useState(true);
+    const [user, setUser] = useState();
 
     const [categories, setCategories] = useState([]);
     const [primaryMenuCounters, setPrimaryMenuCounters] = useState([]);;
-
-    axios.defaults.headers["User-Timezone"] = moment.tz.guess();
 
     useEffect(() => {
         if (user) {
             retrieveCategories(setCategories);
             retrieveMenuCounters(setPrimaryMenuCounters);
         }
+
+        let userData = localStorage.getItem("user");
+
+        if (userData)
+            setUser(JSON.parse(userData));
     }, []);
 
     return (
@@ -37,6 +39,10 @@ const App = () => {
             <AuthContext.Provider value={{user, setUser}}>
                 <CategoryContext.Provider value={{categories, setCategories}}>
                     <MenuContext.Provider value={{primaryMenuCounters, setPrimaryMenuCounters}}>
+                        <AxiosMiddleware
+                            unauthorizedHandler={() =>  logoutHandler(setUser)}
+                            authHeader={{type: "Bearer", token: user?.token}}
+                        />
                         {user ? (
                             <Box sx={{
                                 display: "flex",

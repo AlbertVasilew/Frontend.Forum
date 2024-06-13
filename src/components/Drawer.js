@@ -15,6 +15,8 @@ import MenuContext from '../contexts/menuContext';
 
 import ManageCategoryDialog from './ManageCategoryDialog';
 import { drawer } from '../styles/styles';
+import AuthContext from '../contexts/authContext';
+import { logoutHandler } from '../helpers/auth';
 
 const Menu = () => {
     const [categoriesMenus, setCategoriesMenus] = useState([]);
@@ -22,6 +24,7 @@ const Menu = () => {
 
     const categoryContext = useContext(CategoryContext);
     const primaryMenuContext = useContext(MenuContext);
+    const authContext = useContext(AuthContext);
 
     const { pathname } = useLocation();
     const navigate = useNavigate();
@@ -49,7 +52,7 @@ const Menu = () => {
         <Drawer variant="permanent" PaperProps={{sx: drawer.paper}} sx={drawer.drawer}>
             <Box className="drawer-container">
                 <Typography className="drawer-container__menu">Menu</Typography>
-                <Typography className="drawer-container__welcome-text">Welcome, Albert Vasilev</Typography>
+                <Typography className="drawer-container__welcome-text">Welcome, {authContext.user.username}</Typography>
                 <Box className="drawer-menu">
                     <Typography className="drawer-menu__title">Tasks</Typography>
                     <MenuList>
@@ -95,7 +98,7 @@ const Menu = () => {
                 <Box className="drawer-menu">
                     <Typography className="drawer-menu__title">Account</Typography>
                     <MenuList>
-                        <MenuItem className="drawer-menu-item">
+                        <MenuItem className="drawer-menu-item" onClick={() => logoutHandler(authContext.setUser)}>
                             <ListItemIcon>
                                 <LogoutIcon />
                             </ListItemIcon>

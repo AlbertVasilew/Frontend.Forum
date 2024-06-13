@@ -54,7 +54,7 @@ const ManageTaskDialog = props => {
         <Dialog open={props.data !== null} onClose={props.closeHandler} fullWidth maxWidth="sm">
             <DialogTitle>{props.data.id ? "Edit task" : "Add new task"}</DialogTitle>
             <DialogContent>
-                <Box className="manage-category-dialog">
+                <Box className="dialog-container">
                     <Box className="input-container">
                         <TextField
                             value={fields.name.value}

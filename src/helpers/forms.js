@@ -11,7 +11,7 @@ const validationHandlerFactory = (fields, setFields) => {
         if (emptyFields.length)
             emptyFields.forEach(key => updatedFields[key] = { ...updatedFields[key], error: true });
     
-        Object.keys(updatedFields).filter(key => updatedFields[key].validation).forEach(key => {
+        Object.keys(updatedFields).filter(key => updatedFields[key].validation && updatedFields[key].value).forEach(key => {
             if (!updatedFields[key].validation.regex.test(updatedFields[key].value))
                 updatedFields[key] = { ...updatedFields[key], error: true, errorMessage: updatedFields[key].validation.message };
         });

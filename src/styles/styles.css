@@ -115,7 +115,7 @@ body {
     line-height: inherit !important;
 }
 
-.manage-category-dialog {
+.dialog-container {
     margin: 5px 0px !important;
 }
 
@@ -131,10 +131,10 @@ body {
 }
 
 .input-container__field {
-    flex: 1 1 48%;
+    flex: 1 1 auto;
 }
 
-.manage-category-dialog .react-colorful {
+.dialog-container .react-colorful {
     margin-top: 20px;
     width: 100% !important;
 }
