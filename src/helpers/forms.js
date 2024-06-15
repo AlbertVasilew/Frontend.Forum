@@ -2,8 +2,10 @@ import { isNullOrEmpty } from './common';
 
 const validationHandlerFactory = (fields, setFields) => {
     return () => {
-        const updatedFields = {...fields};
-        Object.keys(updatedFields).forEach(key => updatedFields[key] = { ...updatedFields[key], error: false, errorMessage: null });
+        const updatedFields = structuredClone(fields);
+
+        Object.keys(updatedFields).forEach(
+            key => updatedFields[key] = { ...updatedFields[key], error: false, errorMessage: null });
     
         const emptyFields = Object.keys(updatedFields)
             .filter(key => isNullOrEmpty(updatedFields[key].value) && updatedFields[key].required);
@@ -17,7 +19,6 @@ const validationHandlerFactory = (fields, setFields) => {
         });
     
         setFields(prevFields => ({ ...prevFields, ...updatedFields }));
-        
         return !Object.keys(updatedFields).some(key => updatedFields[key].error);
     }
 }
