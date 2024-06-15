@@ -1,13 +1,12 @@
-import { useContext } from "react"
-import AuthContext from "../contexts/authContext"
-import { useNavigate } from "react-router";
-import Home from "../pages/Home";
+import { useContext } from 'react';
+import { Navigate } from 'react-router-dom';
+
+import AuthContext from '../contexts/AuthContext';
+import Home from '../pages/Home';
 
 const HomeRouteMediator = () => {
     const authContext = useContext(AuthContext);
-    const navigate = useNavigate();
-
-    return authContext.user ? navigate("/upcoming") : <Home />
+    return authContext.user ? <Navigate to="/upcoming" replace /> : <Home />;
 }
 
 export default HomeRouteMediator;

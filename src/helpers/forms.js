@@ -1,4 +1,4 @@
-import { isNullOrEmpty } from "./common";
+import { isNullOrEmpty } from './common';
 
 const validationHandlerFactory = (fields, setFields) => {
     return () => {

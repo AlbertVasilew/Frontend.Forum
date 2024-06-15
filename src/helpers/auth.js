@@ -9,4 +9,9 @@ const authErrorCodes = {
     WrongCredentials: "Wrong credentials"
 }
 
-export { logoutHandler, authErrorCodes }
+const authActions = {
+    login: "login",
+    registration: "registration"
+}
+
+export { logoutHandler, authErrorCodes, authActions }

@@ -1,0 +1,2 @@
+import ManageCategoryDialogContainer from './ManageCategoryDialogContainer';
+export default ManageCategoryDialogContainer;

@@ -1,10 +1,10 @@
-import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-import axios from "axios";
+import axios from 'axios';
 
-import CategoryContext from "../contexts/categoryContext";
-import Tasks from "../components/Tasks";
+import CategoryContext from '../contexts/CategoryContext';
+import TaskBoard from '../components/TaskBoard';
 
 const CategoryTasks = () => {
     const { categoryId } = useParams();
@@ -17,8 +17,8 @@ const CategoryTasks = () => {
             .then(response => setTasks(response.data));
     }, [categoryId])
 
-    const category = categoryContext.categories?.find(x => x.id == categoryId);
-    return category && <Tasks title={category.name} tasks={tasks} category={category} />
+    const category = categoryContext.categories?.find(x => x.id === parseInt(categoryId));
+    return category && <TaskBoard title={category.name} tasks={tasks} category={category} />
 }
 
 export default CategoryTasks;
