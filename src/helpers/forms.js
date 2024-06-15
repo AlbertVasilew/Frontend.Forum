@@ -2,7 +2,7 @@ import { isNullOrEmpty } from './common';
 
 const validationHandlerFactory = (fields, setFields) => {
     return () => {
-        const updatedFields = structuredClone(fields);
+        const updatedFields = {...fields};
 
         Object.keys(updatedFields).forEach(
             key => updatedFields[key] = { ...updatedFields[key], error: false, errorMessage: null });
